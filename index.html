@@ -1,134 +1,556 @@
-<!DOCTYPE html>
-<html>
-<head>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verida Labs</title>
+    <style>
+      :root {
+        --bg: #fafaf7;
+        --text: #5e6a72;
+        --muted: #8fa38d;
+        --muted-dark: #7f927e;
+        --border: #d7ddd8;
+        --overlay: rgba(0, 0, 0, 0.28);
+        --card-text: #8c9295;
+      }
 
-<title>Verida Labs</title>
+      * {
+        box-sizing: border-box;
+      }
 
-<style>
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
 
-body{
-background:#fafaf7;
-font-family:system-ui;
-display:flex;
-align-items:center;
-justify-content:center;
-height:100vh;
-margin:0;
-flex-direction:column;
-}
+      .page {
+        min-height: 100vh;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 64px 24px;
+      }
 
-h1{
-letter-spacing:.35em;
-font-weight:300;
-color:#5e6a72;
-}
+      .hero {
+        width: 100%;
+        max-width: 1200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-.hex{
-width:220px;
-height:220px;
-margin-top:80px;
-cursor:pointer;
-transition:.25s;
-}
+      .wordmark {
+        font-family: ui-serif, "SF Pro Display", Georgia, serif;
+        margin: 0;
+        font-size: clamp(28px, 4vw, 48px);
+        font-weight: 200;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: var(--text);
+        text-align: center;
+      }
 
-.hex:hover{
-transform:translateY(-6px);
-}
+      .headline{
+        animation: heroFade 420ms ease forwards;
+        opacity:0;
+        transform: translateY(6px);
+        margin-top:24px;
+        font-size:clamp(26px,3.6vw,36px);
+        font-weight:400;
+        color:var(--text);
+        text-align:center;
+        letter-spacing:-0.02em;
+        max-width:680px;
+      }
 
-.overlay{
-position:fixed;
-top:0;
-left:0;
-right:0;
-bottom:0;
-background:rgba(0,0,0,.25);
-display:none;
-align-items:center;
-justify-content:center;
-}
+      .subhead{
+        animation: heroFade 420ms ease 80ms forwards;
+        opacity:0;
+        transform: translateY(6px);
+        margin-top:14px;
+        max-width:640px;
+        font-size:18px;
+        line-height:1.7;
+        color:#8c9295;
+        text-align:center;
+      }
 
-.modal{
-background:white;
-padding:40px;
-border-radius:16px;
-width:300px;
-text-align:center;
-}
+      .hex-trigger {
+        appearance: none;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        margin-top: 58px;
+        padding: 0;
+        outline: none;
+      }
 
-input{
-width:100%;
-padding:14px;
-margin-top:15px;
-border:1px solid #ddd;
-border-radius:10px;
-}
+      .hex-wrap {
+        animation: hexResolve 600ms ease 120ms forwards;
+        opacity:0;
+        transform: translateY(6px);
+        width: min(280px, 58vw);
+        height: min(280px, 58vw);
+        transition: transform 300ms ease, filter 300ms ease;
+        filter: drop-shadow(0 10px 18px rgba(143, 163, 141, 0.05));
+      }
 
-button{
-margin-top:20px;
-border:none;
-background:none;
-color:#8FA38D;
-letter-spacing:.2em;
-cursor:pointer;
-}
+      .hex-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
 
-</style>
+      .hex-glow {
+        position: absolute;
+        inset: 18%;
+        border-radius: 999px;
+        background: radial-gradient(circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(143, 163, 141, 0.18), rgba(143, 163, 141, 0.08) 28%, rgba(143, 163, 141, 0) 68%);
+        opacity: 0;
+        transition: opacity 220ms ease;
+        pointer-events: none;
+        filter: blur(10px);
+      }
 
-</head>
+      .hex-trigger:hover .hex-wrap,
+      .hex-trigger:focus-visible .hex-wrap {
+        transform: translateY(-6px) scale(1.03);
+        filter: drop-shadow(0 26px 42px rgba(143, 163, 141, 0.12));
+      }
 
-<body>
+      .hex-trigger:hover .hex-glow,
+      .hex-trigger:focus-visible .hex-glow {
+        opacity: 1;
+      }
 
-<h1>VERIDA LABS</h1>
+      .hex-trigger svg,
+      .modal-hex svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
 
-<div class="hex" onclick="openModal()">
+      .overlay {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: rgba(0, 0, 0, 0);
+        backdrop-filter: blur(0px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 240ms ease, background 240ms ease, backdrop-filter 240ms ease;
+      }
 
-<svg viewBox="0 0 200 200">
+      .overlay.open {
+        opacity: 1;
+        pointer-events: auto;
+        background: rgba(0, 0, 0, 0.22);
+        backdrop-filter: blur(3px);
+      }
 
-<polygon
-points="100,0 200,50 200,150 100,200 0,150 0,50"
-stroke="#8FA38D"
-stroke-width="1.2"
-fill="none"
-/>
+      .modal-shell {
+        position: relative;
+        width: min(376px, 86vw);
+        height: min(388px, 88vw);
+        transform: translateY(10px) scale(0.975);
+        opacity: 0;
+        transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease;
+      }
 
-</svg>
+      .overlay.open .modal-shell {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
 
-</div>
+      .close {
+        position: absolute;
+        top: 22px;
+        right: 28px;
+        z-index: 3;
+        border: 0;
+        background: transparent;
+        color: #a6adb0;
+        font-size: 22px;
+        font-weight: 300;
+        line-height: 1;
+        cursor: pointer;
+        transition: color 180ms ease, transform 180ms ease;
+      }
 
-<div class="overlay" id="overlay">
+      .close:hover {
+        color: #7c8387;
+        transform: scale(1.04);
+      }
 
-<div class="modal">
+      .modal-hex {
+        position: absolute;
+        inset: 0;
+      }
 
-<h2>Join Waitlist</h2>
+      .modal-border {
+        opacity: 0.76;
+        transition: opacity 240ms ease, stroke 240ms ease;
+      }
 
-<form action="https://formspree.io/f/xbdzkbdw" method="POST">
+      .overlay.open .modal-border {
+        opacity: 1;
+        stroke: #cfd8d1;
+      }
 
-  <input
-    type="email"
-    name="email"
-    placeholder="Email address"
-    required
-  >
+      .modal-content {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 46px 44px 40px;
+      }
 
-  <button type="submit">JOIN</button>
+      .form-stack {
+        width: 100%;
+        max-width: 248px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-</form>
+      .modal-title {
+        margin: 0;
+        max-width: 232px;
+        font-size: clamp(22px, 2.1vw, 28px);
+        font-weight: 400;
+        letter-spacing: -0.025em;
+        line-height: 1.12;
+        text-transform: none;
+        color: var(--text);
+      }
 
-</div>
+      .waitlist-form {
+        width: 100%;
+        margin-top: 22px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 
-</div>
+      .email-input {
+        width: 100%;
+        border: 1px solid rgba(215, 221, 216, 0.95);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.94);
+        padding: 13px 16px;
+        font-size: 15px;
+        line-height: 1.35;
+        color: var(--text);
+        outline: none;
+        transition: border-color 180ms ease, box-shadow 220ms ease, background 180ms ease, transform 180ms ease;
+      }
 
-<script>
+      .email-input::placeholder {
+        color: #a1a8ab;
+      }
 
-function openModal(){
-document.getElementById("overlay").style.display="flex"
-}
+      .email-input:focus {
+        border-color: rgba(143, 163, 141, 0.95);
+        background: #ffffff;
+        box-shadow: 0 0 0 4px rgba(143, 163, 141, 0.08);
+        transform: translateY(-1px);
+      }
 
-function closeModal(){
-document.getElementById("overlay").style.display="none"
-}
+      .join-link {
+        margin-top: 16px;
+        appearance: none;
+        border: 0;
+        background: transparent;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: transform 180ms ease, color 180ms ease, opacity 180ms ease;
+      }
 
-</script>
+      .join-link:hover {
+        transform: translateY(-1px);
+        color: var(--muted-dark);
+      }
 
-</body>
+      .join-link:disabled {
+        opacity: 0.6;
+        cursor: default;
+      }
+
+      .success-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #dde4dc;
+        background: #f7faf5;
+        color: var(--muted);
+        box-shadow: 0 8px 18px rgba(143, 163, 141, 0.08);
+      }
+
+      .success-title {
+        margin: 18px 0 0;
+        font-size: clamp(22px, 2.2vw, 28px);
+        font-weight: 400;
+        letter-spacing: -0.03em;
+        line-height: 1.2;
+        color: var(--text);
+      }
+
+      .success-copy {
+        max-width: 238px;
+        margin: 10px auto 0;
+        font-size: 14px;
+        line-height: 1.7;
+        color: var(--card-text);
+      }
+
+      .close-secondary {
+        margin-top: 22px;
+        border: 1px solid #d9deda;
+        border-radius: 12px;
+        background: transparent;
+        padding: 11px 18px;
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text);
+        cursor: pointer;
+        transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+      }
+
+      .close-secondary:hover {
+        border-color: #c6cdc8;
+        background: #fafaf7;
+        transform: translateY(-1px);
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      @keyframes heroFade{
+        to{opacity:1; transform:translateY(0);} }
+
+      @keyframes hexResolve{
+        0%{opacity:0; transform:translateY(10px) scale(.96);} 
+        60%{opacity:1; transform:translateY(-2px) scale(1.01);} 
+        100%{opacity:1; transform:translateY(0) scale(1);} }
+
+      @media (max-width: 640px) {
+        .page {
+          padding-top: 56px;
+        }
+
+        .hex-trigger {
+          margin-top: 72px;
+        }
+
+        .close {
+          right: 20px;
+          top: 16px;
+        }
+
+        .modal-content {
+          padding: 40px 32px 34px;
+        }
+
+        .modal-title {
+          max-width: 210px;
+        }
+
+        .form-stack {
+          max-width: 220px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <h1 class="wordmark">Verida Labs</h1>
+
+        <p class="headline">Built for sustained concentration.</p>
+
+        <p class="subhead">
+          A premium daily supplement designed to support calm focus<br/>and deep mental capacity.
+        </p>
+
+        <button class="hex-trigger" id="openModal" aria-label="Open waitlist">
+          <div class="hex-wrap" id="hexWrap">
+            <div class="hex-inner">
+              <div class="hex-glow" id="hexGlow"></div>
+              <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <polygon
+                  points="100,0 200,50 200,150 100,200 0,150 0,50"
+                  stroke="#8FA38D"
+                  stroke-width="1.05"
+                  fill="transparent"
+                />
+              </svg>
+            </div>
+          </div>
+        </button>
+
+      </section>
+    </main>
+
+    <div class="overlay" id="overlay">
+      <div class="modal-shell" role="dialog" aria-modal="true" aria-labelledby="waitlistTitle">
+        <button class="close" id="closeModal" aria-label="Close">×</button>
+
+        <div class="modal-hex">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <polygon
+              class="modal-border"
+              points="100,0 200,50 200,150 100,200 0,150 0,50"
+              stroke="#D7DDD8"
+              stroke-width="1.2"
+              fill="#FFFFFF"
+            />
+          </svg>
+        </div>
+
+        <div class="modal-content" id="formState">
+          <h2 class="modal-title" id="waitlistTitle">Be part of the pilot</h2>
+
+          <form class="waitlist-form" id="waitlistForm" action="https://formspree.io/f/xbdzkbdw" method="POST">
+            <div class="form-stack">
+              <input
+                class="email-input"
+                id="email"
+                name="email"
+                type="email"
+                placeholder="Enter your email"
+                autocomplete="email"
+                required
+              />
+
+              <button class="join-link" id="submitButton" type="submit">Request access</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-content hidden" id="successState">
+          <div class="success-icon">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path
+                d="M5 12.5L9.5 17L19 7.5"
+                stroke="currentColor"
+                stroke-width="1.05"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+          <h2 class="success-title">You’re on the list</h2>
+          <p class="success-copy">Thanks for joining Verida Labs. We’ll be in touch when early access opens.</p>
+          <button class="close-secondary" id="closeSuccess" type="button">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const overlay = document.getElementById("overlay");
+      const openModal = document.getElementById("openModal");
+      const closeModal = document.getElementById("closeModal");
+      const closeSuccess = document.getElementById("closeSuccess");
+      const waitlistForm = document.getElementById("waitlistForm");
+      const emailInput = document.getElementById("email");
+      const formState = document.getElementById("formState");
+      const successState = document.getElementById("successState");
+      const submitButton = document.getElementById("submitButton");
+      const hexWrap = document.getElementById("hexWrap");
+      const hexGlow = document.getElementById("hexGlow");
+
+      function openWaitlist() {
+        overlay.classList.add("open");
+        setTimeout(() => emailInput.focus(), 180);
+      }
+
+      function resetModal() {
+        overlay.classList.remove("open");
+        setTimeout(() => {
+          formState.classList.remove("hidden");
+          successState.classList.add("hidden");
+          waitlistForm.reset();
+          submitButton.textContent = "Request access";
+          submitButton.disabled = false;
+        }, 180);
+      }
+
+      openModal.addEventListener("click", openWaitlist);
+      closeModal.addEventListener("click", resetModal);
+      closeSuccess.addEventListener("click", resetModal);
+
+      overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) resetModal();
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && overlay.classList.contains("open")) {
+          resetModal();
+        }
+      });
+
+      if (hexWrap && hexGlow) {
+        hexWrap.addEventListener("mousemove", (e) => {
+          const rect = hexWrap.getBoundingClientRect();
+          const x = ((e.clientX - rect.left) / rect.width) * 100;
+          const y = ((e.clientY - rect.top) / rect.height) * 100;
+          hexGlow.style.setProperty("--glow-x", `${x}%`);
+          hexGlow.style.setProperty("--glow-y", `${y}%`);
+        });
+
+        hexWrap.addEventListener("mouseleave", () => {
+          hexGlow.style.setProperty("--glow-x", "50%");
+          hexGlow.style.setProperty("--glow-y", "50%");
+        });
+      }
+
+      waitlistForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        submitButton.textContent = "Joining…";
+        submitButton.disabled = true;
+
+        const formData = new FormData(waitlistForm);
+
+        try {
+          const response = await fetch("https://formspree.io/f/xbdzkbdw", {
+            method: "POST",
+            body: formData,
+            headers: {
+              Accept: "application/json"
+            }
+          });
+
+          if (!response.ok) throw new Error("Form submit failed");
+
+          formState.classList.add("hidden");
+          successState.classList.remove("hidden");
+        } catch (error) {
+          submitButton.textContent = "Try again";
+          submitButton.disabled = false;
+        }
+      });
+    </script>
+  </body>
 </html>
