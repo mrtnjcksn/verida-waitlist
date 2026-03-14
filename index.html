@@ -101,9 +101,18 @@ fill="none"
 
 <h2>Join Waitlist</h2>
 
-<input placeholder="Email address">
+<form action="https://formspree.io/f/xbdzkbdw" method="POST">
 
-<button onclick="closeModal()">JOIN</button>
+  <input
+    type="email"
+    name="email"
+    placeholder="Email address"
+    required
+  >
+
+  <button type="submit">JOIN</button>
+
+</form>
 
 </div>
 
