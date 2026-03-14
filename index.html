@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Verida Labs</title>
+
+<style>
+
+body{
+background:#fafaf7;
+font-family:system-ui;
+display:flex;
+align-items:center;
+justify-content:center;
+height:100vh;
+margin:0;
+flex-direction:column;
+}
+
+h1{
+letter-spacing:.35em;
+font-weight:300;
+color:#5e6a72;
+}
+
+.hex{
+width:220px;
+height:220px;
+margin-top:80px;
+cursor:pointer;
+transition:.25s;
+}
+
+.hex:hover{
+transform:translateY(-6px);
+}
+
+.overlay{
+position:fixed;
+top:0;
+left:0;
+right:0;
+bottom:0;
+background:rgba(0,0,0,.25);
+display:none;
+align-items:center;
+justify-content:center;
+}
+
+.modal{
+background:white;
+padding:40px;
+border-radius:16px;
+width:300px;
+text-align:center;
+}
+
+input{
+width:100%;
+padding:14px;
+margin-top:15px;
+border:1px solid #ddd;
+border-radius:10px;
+}
+
+button{
+margin-top:20px;
+border:none;
+background:none;
+color:#8FA38D;
+letter-spacing:.2em;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>VERIDA LABS</h1>
+
+<div class="hex" onclick="openModal()">
+
+<svg viewBox="0 0 200 200">
+
+<polygon
+points="100,0 200,50 200,150 100,200 0,150 0,50"
+stroke="#8FA38D"
+stroke-width="1.2"
+fill="none"
+/>
+
+</svg>
+
+</div>
+
+<div class="overlay" id="overlay">
+
+<div class="modal">
+
+<h2>Join Waitlist</h2>
+
+<input placeholder="Email address">
+
+<button onclick="closeModal()">JOIN</button>
+
+</div>
+
+</div>
+
+<script>
+
+function openModal(){
+document.getElementById("overlay").style.display="flex"
+}
+
+function closeModal(){
+document.getElementById("overlay").style.display="none"
+}
+
+</script>
+
+</body>
+</html>
