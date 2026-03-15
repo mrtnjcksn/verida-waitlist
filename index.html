@@ -34,12 +34,16 @@
         color: var(--text);
       }
 
+      body {
+        overflow-x: hidden;
+      }
+
       .page {
         min-height: 100vh;
         display: flex;
         align-items: flex-start;
         justify-content: center;
-        padding: 64px 24px;
+        padding: 52px 24px 64px;
       }
 
       .hero {
@@ -65,24 +69,25 @@
         animation: heroFade 420ms ease forwards;
         opacity: 0;
         transform: translateY(6px);
-        margin-top: 24px;
+        margin: 22px 0 0;
         font-size: clamp(26px, 3.6vw, 36px);
         font-weight: 400;
         color: var(--text);
         text-align: center;
         letter-spacing: -0.02em;
-        max-width: 680px;
+        line-height: 1.15;
+        max-width: 760px;
       }
 
       .subhead {
         animation: heroFade 420ms ease 80ms forwards;
         opacity: 0;
         transform: translateY(6px);
-        margin-top: 14px;
-        max-width: 640px;
+        margin: 18px 0 0;
+        max-width: 700px;
         font-size: 18px;
         line-height: 1.7;
-        color: #8c9295;
+        color: var(--card-text);
         text-align: center;
       }
 
@@ -91,7 +96,7 @@
         border: 0;
         background: transparent;
         cursor: pointer;
-        margin-top: 58px;
+        margin-top: 34px;
         padding: 0;
         outline: none;
       }
@@ -100,7 +105,7 @@
         animation: hexResolve 600ms ease 120ms forwards;
         opacity: 0;
         transform: translateY(6px);
-        width: min(320px, 72vw);
+        width: min(420px, 78vw);
         transition: transform 300ms ease, filter 300ms ease;
         filter: drop-shadow(0 10px 18px rgba(158, 171, 153, 0.05));
       }
@@ -362,11 +367,25 @@
 
       @media (max-width: 640px) {
         .page {
-          padding-top: 56px;
+          padding: 44px 20px 56px;
+        }
+
+        .headline {
+          margin-top: 18px;
+        }
+
+        .subhead {
+          margin-top: 14px;
+          font-size: 17px;
+          line-height: 1.65;
         }
 
         .hex-trigger {
-          margin-top: 72px;
+          margin-top: 42px;
+        }
+
+        .hex-wrap {
+          width: min(340px, 84vw);
         }
 
         .close {
