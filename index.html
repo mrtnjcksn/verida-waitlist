@@ -4,9 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Verida Labs</title>
+
     <link rel="icon" href="favicon.ico" sizes="any" />
-    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="verida-logo-mark.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <meta name="theme-color" content="#f3f1ec" />
+
+    <meta property="og:image" content="social-preview-1200x630.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="social-preview-1200x630.png" />
 
     <style>
       :root {
@@ -17,6 +26,7 @@
         --border: #c7ccca;
         --sage: #9eab99;
         --gold: #bc9558;
+        --dusky-blue: #7b93b2;
         --overlay: rgba(0, 0, 0, 0.16);
         --card-text: #8c9295;
       }
@@ -155,8 +165,8 @@
 
       .modal-shell {
         position: relative;
-        width: min(376px, 86vw);
-        height: min(388px, 88vw);
+        width: min(392px, 88vw);
+        height: min(392px, 88vw);
         transform: translateY(10px) scale(0.975);
         opacity: 0;
         transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease;
@@ -193,13 +203,17 @@
       }
 
       .modal-border {
-        opacity: 0.76;
-        transition: opacity 240ms ease, stroke 240ms ease;
+        fill: rgba(255, 255, 255, 0.92);
+        stroke: rgba(158, 171, 153, 0.72);
+        stroke-width: 7;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        transition: opacity 240ms ease, stroke 240ms ease, fill 240ms ease;
       }
 
       .overlay.open .modal-border {
-        opacity: 1;
-        stroke: #cfd8d1;
+        stroke: rgba(158, 171, 153, 0.96);
+        fill: rgba(255, 255, 255, 0.97);
       }
 
       .modal-content {
@@ -210,7 +224,7 @@
         align-items: center;
         justify-content: center;
         text-align: center;
-        padding: 46px 44px 40px;
+        padding: 52px 44px 42px;
       }
 
       .form-stack {
@@ -424,7 +438,7 @@
             <div class="hex-inner">
               <div class="hex-glow" id="hexGlow"></div>
               <img
-                src="verida-mark.svg"
+                src="verida-logo-mark.svg"
                 alt="Verida Labs logo mark"
                 class="hero-mark"
               />
@@ -440,12 +454,9 @@
 
         <div class="modal-hex">
           <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <polygon
+            <path
               class="modal-border"
-              points="100,0 200,50 200,150 100,200 0,150 0,50"
-              stroke="#D7DDD8"
-              stroke-width="1.2"
-              fill="#FFFFFF"
+              d="M100 28 L160 63 L160 137 L100 172 L40 137 L40 63 Z"
             />
           </svg>
         </div>
