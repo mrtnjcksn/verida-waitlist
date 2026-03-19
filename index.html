@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <title>Verida Labs</title>
 
     <link rel="icon" href="favicon.ico" sizes="any" />
@@ -31,7 +34,9 @@
         --card-text: #8c9295;
       }
 
-      * {
+      *,
+      *::before,
+      *::after {
         box-sizing: border-box;
       }
 
@@ -42,6 +47,7 @@
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
         background: var(--bg);
         color: var(--text);
+        -webkit-text-size-adjust: 100%;
       }
 
       body {
@@ -148,7 +154,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 20px;
+        padding: 16px;
         background: rgba(0, 0, 0, 0);
         backdrop-filter: blur(0px);
         opacity: 0;
@@ -165,8 +171,8 @@
 
       .modal-shell {
         position: relative;
-        width: min(520px, 96vw);
-        height: min(520px, 96vw);
+        width: min(520px, 92vw);
+        aspect-ratio: 1 / 1;
         transform: translateY(10px) scale(0.975);
         opacity: 0;
         transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms ease;
@@ -179,8 +185,8 @@
 
       .close {
         position: absolute;
-        top: 28px;
-        right: 34px;
+        top: 24px;
+        right: 28px;
         z-index: 3;
         border: 0;
         background: transparent;
@@ -218,18 +224,19 @@
 
       .modal-content {
         position: absolute;
-        inset: 0;
+        inset: 14% 14% 13%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         text-align: center;
-        padding: 68px 62px 58px;
+        padding: 0;
       }
 
       .form-stack {
         width: 100%;
-        max-width: 340px;
+        max-width: 270px;
+        min-width: 0;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -237,18 +244,18 @@
 
       .modal-title {
         margin: 0;
-        max-width: 300px;
-        font-size: clamp(24px, 2.2vw, 32px);
+        max-width: 260px;
+        font-size: clamp(22px, 2.2vw, 30px);
         font-weight: 400;
         letter-spacing: -0.03em;
-        line-height: 1.1;
+        line-height: 1.12;
         text-transform: none;
         color: var(--text);
       }
 
       .waitlist-form {
         width: 100%;
-        margin-top: 26px;
+        margin-top: 20px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -256,10 +263,11 @@
 
       .email-input {
         width: 100%;
+        min-width: 0;
         border: 1px solid rgba(215, 221, 216, 0.95);
         border-radius: 14px;
         background: rgba(255, 255, 255, 0.96);
-        padding: 15px 18px;
+        padding: 14px 16px;
         font-size: 16px;
         line-height: 1.35;
         color: var(--text);
@@ -279,14 +287,14 @@
       }
 
       .join-link {
-        margin-top: 18px;
+        margin-top: 16px;
         appearance: none;
         border: 0;
         background: transparent;
         color: var(--muted);
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 500;
-        letter-spacing: 0.16em;
+        letter-spacing: 0.14em;
         text-transform: uppercase;
         cursor: pointer;
         transition: transform 180ms ease, color 180ms ease, opacity 180ms ease;
@@ -317,7 +325,7 @@
 
       .success-title {
         margin: 18px 0 0;
-        font-size: clamp(24px, 2.3vw, 30px);
+        font-size: clamp(22px, 2.3vw, 28px);
         font-weight: 400;
         letter-spacing: -0.03em;
         line-height: 1.2;
@@ -325,15 +333,15 @@
       }
 
       .success-copy {
-        max-width: 270px;
+        max-width: 250px;
         margin: 10px auto 0;
         font-size: 15px;
-        line-height: 1.7;
+        line-height: 1.6;
         color: var(--card-text);
       }
 
       .close-secondary {
-        margin-top: 24px;
+        margin-top: 22px;
         border: 1px solid #d9deda;
         border-radius: 12px;
         background: transparent;
@@ -402,36 +410,75 @@
           width: min(340px, 84vw);
         }
 
-        .close {
-          right: 18px;
-          top: 14px;
-        }
-
         .modal-shell {
-          width: min(440px, 96vw);
-          height: min(440px, 96vw);
+          width: min(400px, 92vw);
         }
 
         .modal-content {
-          padding: 52px 30px 40px;
+          inset: 15% 16% 14%;
+        }
+
+        .close {
+          right: 16px;
+          top: 12px;
+          font-size: 20px;
         }
 
         .modal-title {
-          max-width: 260px;
-          font-size: clamp(22px, 6vw, 28px);
+          max-width: 220px;
+          font-size: clamp(20px, 5.8vw, 26px);
+          line-height: 1.12;
         }
 
         .form-stack {
-          max-width: 280px;
+          max-width: 220px;
         }
 
         .waitlist-form {
-          margin-top: 22px;
+          margin-top: 18px;
         }
 
         .email-input {
-          padding: 14px 16px;
-          font-size: 15px;
+          padding: 13px 14px;
+          font-size: 16px;
+        }
+
+        .join-link {
+          margin-top: 14px;
+          font-size: 12px;
+          letter-spacing: 0.13em;
+        }
+
+        .success-title {
+          font-size: clamp(20px, 5.8vw, 26px);
+        }
+
+        .success-copy {
+          max-width: 220px;
+          font-size: 14px;
+          line-height: 1.55;
+        }
+      }
+
+      @media (max-width: 390px) {
+        .overlay {
+          padding: 12px;
+        }
+
+        .modal-shell {
+          width: min(360px, 94vw);
+        }
+
+        .modal-content {
+          inset: 16% 17% 15%;
+        }
+
+        .form-stack {
+          max-width: 205px;
+        }
+
+        .modal-title {
+          max-width: 205px;
         }
       }
     </style>
@@ -479,7 +526,12 @@
         <div class="modal-content" id="formState">
           <h2 class="modal-title" id="waitlistTitle">Be part of the pilot</h2>
 
-          <form class="waitlist-form" id="waitlistForm" action="https://formspree.io/f/xbdzkbdw" method="POST">
+          <form
+            class="waitlist-form"
+            id="waitlistForm"
+            action="https://formspree.io/f/xbdzkbdw"
+            method="POST"
+          >
             <div class="form-stack">
               <input
                 class="email-input"
@@ -491,14 +543,23 @@
                 required
               />
 
-              <button class="join-link" id="submitButton" type="submit">Request access</button>
+              <button class="join-link" id="submitButton" type="submit">
+                Request access
+              </button>
             </div>
           </form>
         </div>
 
         <div class="modal-content hidden" id="successState">
           <div class="success-icon">
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              width="28"
+              height="28"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
               <path
                 d="M5 12.5L9.5 17L19 7.5"
                 stroke="currentColor"
@@ -510,8 +571,12 @@
           </div>
 
           <h2 class="success-title">You’re on the list</h2>
-          <p class="success-copy">Thanks for joining Verida Labs. We’ll be in touch when early access opens.</p>
-          <button class="close-secondary" id="closeSuccess" type="button">Close</button>
+          <p class="success-copy">
+            Thanks for joining Verida Labs. We’ll be in touch when early access opens.
+          </p>
+          <button class="close-secondary" id="closeSuccess" type="button">
+            Close
+          </button>
         </div>
       </div>
     </div>
@@ -590,7 +655,9 @@
             }
           });
 
-          if (!response.ok) throw new Error("Form submit failed");
+          if (!response.ok) {
+            throw new Error("Form submit failed");
+          }
 
           formState.classList.add("hidden");
           successState.classList.remove("hidden");
