@@ -30,7 +30,6 @@
         --sage: #9eab99;
         --gold: #bc9558;
         --dusky-blue: #7b93b2;
-        --overlay: rgba(0, 0, 0, 0.16);
         --card-text: #8c9295;
       }
 
@@ -100,7 +99,7 @@
         opacity: 0;
         transform: translateY(6px);
         margin: 18px 0 0;
-        max-width: 700px;
+        max-width: 720px;
         font-size: 18px;
         line-height: 1.7;
         color: var(--card-text);
@@ -171,7 +170,7 @@
 
       .modal-shell {
         position: relative;
-        width: min(520px, 92vw);
+        width: min(560px, 92vw);
         aspect-ratio: 1 / 1;
         transform: translateY(10px) scale(0.975);
         opacity: 0;
@@ -185,9 +184,9 @@
 
       .close {
         position: absolute;
-        top: 24px;
+        top: 22px;
         right: 28px;
-        z-index: 3;
+        z-index: 4;
         border: 0;
         background: transparent;
         color: #a6adb0;
@@ -224,7 +223,7 @@
 
       .modal-content {
         position: absolute;
-        inset: 14% 14% 13%;
+        inset: 13.5% 14% 12.5%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -233,27 +232,40 @@
         padding: 0;
       }
 
-      .form-stack {
+      .hidden {
+        display: none;
+      }
+
+      .modal-title {
+        margin: 0;
+        max-width: 280px;
+        font-size: clamp(22px, 2.4vw, 30px);
+        font-weight: 400;
+        letter-spacing: -0.03em;
+        line-height: 1.12;
+        color: var(--text);
+      }
+
+      .modal-copy {
+        max-width: 280px;
+        margin: 10px auto 0;
+        font-size: 14px;
+        line-height: 1.65;
+        color: var(--card-text);
+      }
+
+      .form-stack,
+      .qualifier-stack {
         width: 100%;
-        max-width: 270px;
+        max-width: 280px;
         min-width: 0;
         display: flex;
         flex-direction: column;
         align-items: center;
       }
 
-      .modal-title {
-        margin: 0;
-        max-width: 260px;
-        font-size: clamp(22px, 2.2vw, 30px);
-        font-weight: 400;
-        letter-spacing: -0.03em;
-        line-height: 1.12;
-        text-transform: none;
-        color: var(--text);
-      }
-
-      .waitlist-form {
+      .waitlist-form,
+      .qualifier-form {
         width: 100%;
         margin-top: 20px;
         display: flex;
@@ -261,7 +273,8 @@
         align-items: center;
       }
 
-      .email-input {
+      .email-input,
+      .select-input {
         width: 100%;
         min-width: 0;
         border: 1px solid rgba(215, 221, 216, 0.95);
@@ -279,35 +292,108 @@
         color: #a1a8ab;
       }
 
-      .email-input:focus {
+      .email-input:focus,
+      .select-input:focus {
         border-color: rgba(143, 163, 141, 0.95);
         background: #ffffff;
         box-shadow: 0 0 0 4px rgba(143, 163, 141, 0.08);
         transform: translateY(-1px);
       }
 
-      .join-link {
-        margin-top: 16px;
+      .field-group {
+        width: 100%;
+        margin-top: 10px;
+        text-align: left;
+      }
+
+      .field-group:first-child {
+        margin-top: 0;
+      }
+
+      .field-label {
+        display: block;
+        margin: 0 0 6px;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .form-meta {
+        margin-top: 10px;
+        max-width: 260px;
+        font-size: 12px;
+        line-height: 1.5;
+        color: var(--card-text);
+      }
+
+      .join-link,
+      .primary-button,
+      .secondary-link {
         appearance: none;
         border: 0;
         background: transparent;
+        cursor: pointer;
+        transition: transform 180ms ease, color 180ms ease, opacity 180ms ease, border-color 180ms ease, background 180ms ease;
+      }
+
+      .join-link {
+        margin-top: 16px;
         color: var(--muted);
         font-size: 12px;
         font-weight: 500;
         letter-spacing: 0.14em;
         text-transform: uppercase;
-        cursor: pointer;
-        transition: transform 180ms ease, color 180ms ease, opacity 180ms ease;
       }
 
-      .join-link:hover {
+      .join-link:hover,
+      .secondary-link:hover {
         transform: translateY(-1px);
         color: var(--muted-dark);
       }
 
-      .join-link:disabled {
+      .join-link:disabled,
+      .primary-button:disabled,
+      .secondary-link:disabled {
         opacity: 0.6;
         cursor: default;
+      }
+
+      .button-row {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .primary-button {
+        margin-top: 16px;
+        width: 100%;
+        border: 1px solid #d9deda;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.86);
+        padding: 13px 16px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text);
+      }
+
+      .primary-button:hover {
+        border-color: #c6cdc8;
+        background: #fafaf7;
+        transform: translateY(-1px);
+      }
+
+      .secondary-link {
+        margin-top: 12px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
       }
 
       .success-icon {
@@ -333,7 +419,7 @@
       }
 
       .success-copy {
-        max-width: 250px;
+        max-width: 260px;
         margin: 10px auto 0;
         font-size: 15px;
         line-height: 1.6;
@@ -359,10 +445,6 @@
         border-color: #c6cdc8;
         background: #fafaf7;
         transform: translateY(-1px);
-      }
-
-      .hidden {
-        display: none;
       }
 
       @keyframes heroFade {
@@ -411,11 +493,11 @@
         }
 
         .modal-shell {
-          width: min(400px, 92vw);
+          width: min(420px, 92vw);
         }
 
         .modal-content {
-          inset: 15% 16% 14%;
+          inset: 14.5% 16% 14%;
         }
 
         .close {
@@ -425,38 +507,26 @@
         }
 
         .modal-title {
-          max-width: 220px;
-          font-size: clamp(20px, 5.8vw, 26px);
-          line-height: 1.12;
-        }
-
-        .form-stack {
-          max-width: 220px;
-        }
-
-        .waitlist-form {
-          margin-top: 18px;
-        }
-
-        .email-input {
-          padding: 13px 14px;
-          font-size: 16px;
-        }
-
-        .join-link {
-          margin-top: 14px;
-          font-size: 12px;
-          letter-spacing: 0.13em;
-        }
-
-        .success-title {
+          max-width: 230px;
           font-size: clamp(20px, 5.8vw, 26px);
         }
 
+        .modal-copy,
         .success-copy {
           max-width: 220px;
           font-size: 14px;
           line-height: 1.55;
+        }
+
+        .form-stack,
+        .qualifier-stack {
+          max-width: 220px;
+        }
+
+        .email-input,
+        .select-input {
+          padding: 13px 14px;
+          font-size: 16px;
         }
       }
 
@@ -466,18 +536,18 @@
         }
 
         .modal-shell {
-          width: min(360px, 94vw);
+          width: min(370px, 94vw);
         }
 
         .modal-content {
-          inset: 16% 17% 15%;
+          inset: 15.5% 17% 15%;
         }
 
-        .form-stack {
-          max-width: 205px;
-        }
-
-        .modal-title {
+        .form-stack,
+        .qualifier-stack,
+        .modal-title,
+        .modal-copy,
+        .success-copy {
           max-width: 205px;
         }
       }
@@ -525,6 +595,9 @@
 
         <div class="modal-content" id="formState">
           <h2 class="modal-title" id="waitlistTitle">Be part of the pilot</h2>
+          <p class="modal-copy">
+            Join the early list for pilot access, product updates, and first-release invites.
+          </p>
 
           <form
             class="waitlist-form"
@@ -533,6 +606,24 @@
             method="POST"
           >
             <div class="form-stack">
+              <input type="hidden" name="_subject" value="Verida Labs waitlist signup" />
+              <input type="hidden" name="_replyto" id="replyToField" value="" />
+              <input type="hidden" name="form_type" value="waitlist_signup" />
+              <input type="hidden" name="landing_page" class="tracking-field" data-track="landing_page" />
+              <input type="hidden" name="page_path" class="tracking-field" data-track="page_path" />
+              <input type="hidden" name="page_title" class="tracking-field" data-track="page_title" />
+              <input type="hidden" name="referrer" class="tracking-field" data-track="referrer" />
+              <input type="hidden" name="referrer_host" class="tracking-field" data-track="referrer_host" />
+              <input type="hidden" name="utm_source" class="tracking-field" data-track="utm_source" />
+              <input type="hidden" name="utm_medium" class="tracking-field" data-track="utm_medium" />
+              <input type="hidden" name="utm_campaign" class="tracking-field" data-track="utm_campaign" />
+              <input type="hidden" name="utm_term" class="tracking-field" data-track="utm_term" />
+              <input type="hidden" name="utm_content" class="tracking-field" data-track="utm_content" />
+              <input type="hidden" name="source_summary" class="tracking-field" data-track="source_summary" />
+              <input type="hidden" name="submitted_at_utc" class="tracking-field" data-track="submitted_at_utc" />
+              <input type="hidden" name="screen_size" class="tracking-field" data-track="screen_size" />
+              <input type="hidden" name="user_agent" class="tracking-field" data-track="user_agent" />
+
               <input
                 class="email-input"
                 id="email"
@@ -546,11 +637,95 @@
               <button class="join-link" id="submitButton" type="submit">
                 Request access
               </button>
+
+              <p class="form-meta">
+                We’ll use this to contact you about pilot access and early updates.
+              </p>
             </div>
           </form>
         </div>
 
-        <div class="modal-content hidden" id="successState">
+        <div class="modal-content hidden" id="qualifierState">
+          <h2 class="modal-title">One last thing</h2>
+          <p class="modal-copy">Optional, but useful. This helps us learn who wants this most.</p>
+
+          <form
+            class="qualifier-form"
+            id="qualifierForm"
+            action="https://formspree.io/f/xbdzkbdw"
+            method="POST"
+          >
+            <div class="qualifier-stack">
+              <input type="hidden" name="_subject" value="Verida Labs waitlist qualifier" />
+              <input type="hidden" name="form_type" value="waitlist_qualifier" />
+              <input type="hidden" name="email" id="qualifierEmail" value="" />
+              <input type="hidden" name="landing_page" class="tracking-field" data-track="landing_page" />
+              <input type="hidden" name="page_path" class="tracking-field" data-track="page_path" />
+              <input type="hidden" name="page_title" class="tracking-field" data-track="page_title" />
+              <input type="hidden" name="referrer" class="tracking-field" data-track="referrer" />
+              <input type="hidden" name="referrer_host" class="tracking-field" data-track="referrer_host" />
+              <input type="hidden" name="utm_source" class="tracking-field" data-track="utm_source" />
+              <input type="hidden" name="utm_medium" class="tracking-field" data-track="utm_medium" />
+              <input type="hidden" name="utm_campaign" class="tracking-field" data-track="utm_campaign" />
+              <input type="hidden" name="utm_term" class="tracking-field" data-track="utm_term" />
+              <input type="hidden" name="utm_content" class="tracking-field" data-track="utm_content" />
+              <input type="hidden" name="source_summary" class="tracking-field" data-track="source_summary" />
+              <input type="hidden" name="submitted_at_utc" class="tracking-field" data-track="submitted_at_utc" />
+              <input type="hidden" name="screen_size" class="tracking-field" data-track="screen_size" />
+              <input type="hidden" name="user_agent" class="tracking-field" data-track="user_agent" />
+
+              <div class="field-group">
+                <label class="field-label" for="role">Closest to you</label>
+                <select class="select-input" id="role" name="role">
+                  <option value="">Select one</option>
+                  <option>Founder</option>
+                  <option>Executive / Leader</option>
+                  <option>Manager</option>
+                  <option>Operator / Builder</option>
+                  <option>Creative / Knowledge worker</option>
+                  <option>Student</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label" for="focusNeed">Main focus issue</label>
+                <select class="select-input" id="focusNeed" name="focus_need">
+                  <option value="">Select one</option>
+                  <option>Context switching</option>
+                  <option>Afternoon crash</option>
+                  <option>Too many meetings</option>
+                  <option>Jitters from caffeine</option>
+                  <option>Struggling to start deep work</option>
+                  <option>Staying focused for long sessions</option>
+                </select>
+              </div>
+
+              <div class="field-group">
+                <label class="field-label" for="coffeeHabit">Coffee habit</label>
+                <select class="select-input" id="coffeeHabit" name="coffee_habit">
+                  <option value="">Select one</option>
+                  <option>None</option>
+                  <option>1 cup a day</option>
+                  <option>2–3 cups a day</option>
+                  <option>4+ cups a day</option>
+                  <option>Mostly tea / other caffeine</option>
+                </select>
+              </div>
+
+              <div class="button-row">
+                <button class="primary-button" id="qualifierSubmitButton" type="submit">
+                  Finish
+                </button>
+                <button class="secondary-link" id="skipQualifier" type="button">
+                  Skip
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="modal-content hidden" id="thankyouState">
           <div class="success-icon">
             <svg
               viewBox="0 0 24 24"
@@ -574,53 +749,191 @@
           <p class="success-copy">
             Thanks for joining Verida Labs. We’ll be in touch when early access opens.
           </p>
-          <button class="close-secondary" id="closeSuccess" type="button">
-            Close
-          </button>
+          <button class="close-secondary" id="closeSuccess" type="button">Close</button>
         </div>
       </div>
     </div>
 
     <script>
+      const FORM_ENDPOINT = "https://formspree.io/f/xbdzkbdw";
+      const GA_MEASUREMENT_ID = "";
+
       const overlay = document.getElementById("overlay");
       const openModal = document.getElementById("openModal");
       const closeModal = document.getElementById("closeModal");
       const closeSuccess = document.getElementById("closeSuccess");
+
       const waitlistForm = document.getElementById("waitlistForm");
+      const qualifierForm = document.getElementById("qualifierForm");
+
       const emailInput = document.getElementById("email");
+      const replyToField = document.getElementById("replyToField");
+      const qualifierEmail = document.getElementById("qualifierEmail");
+
       const formState = document.getElementById("formState");
-      const successState = document.getElementById("successState");
+      const qualifierState = document.getElementById("qualifierState");
+      const thankyouState = document.getElementById("thankyouState");
+
       const submitButton = document.getElementById("submitButton");
+      const qualifierSubmitButton = document.getElementById("qualifierSubmitButton");
+      const skipQualifier = document.getElementById("skipQualifier");
+
       const hexWrap = document.getElementById("hexWrap");
       const hexGlow = document.getElementById("hexGlow");
 
+      let submittedEmail = "";
+      let modalOpenTimestamp = 0;
+
+      function initAnalytics() {
+        if (!GA_MEASUREMENT_ID) return;
+
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+        document.head.appendChild(script);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          window.dataLayer.push(arguments);
+        }
+        window.gtag = gtag;
+        gtag("js", new Date());
+        gtag("config", GA_MEASUREMENT_ID);
+      }
+
+      function track(eventName, params = {}) {
+        if (typeof window.gtag === "function") {
+          window.gtag("event", eventName, params);
+        }
+      }
+
+      function getTrackingData() {
+        const params = new URLSearchParams(window.location.search);
+        const referrer = document.referrer || "";
+        let referrerHost = "";
+
+        try {
+          referrerHost = referrer ? new URL(referrer).hostname : "";
+        } catch (error) {
+          referrerHost = "";
+        }
+
+        const utmSource = params.get("utm_source") || "";
+        const utmMedium = params.get("utm_medium") || "";
+        const utmCampaign = params.get("utm_campaign") || "";
+        const utmTerm = params.get("utm_term") || "";
+        const utmContent = params.get("utm_content") || "";
+
+        let sourceSummary = "direct";
+        if (utmSource || utmMedium || utmCampaign) {
+          sourceSummary = [utmSource || "unknown-source", utmMedium || "unknown-medium", utmCampaign || "no-campaign"]
+            .filter(Boolean)
+            .join(" / ");
+        } else if (referrerHost) {
+          sourceSummary = `referrer / ${referrerHost}`;
+        }
+
+        return {
+          landing_page: window.location.href,
+          page_path: window.location.pathname,
+          page_title: document.title,
+          referrer,
+          referrer_host: referrerHost,
+          utm_source: utmSource,
+          utm_medium: utmMedium,
+          utm_campaign: utmCampaign,
+          utm_term: utmTerm,
+          utm_content: utmContent,
+          source_summary: sourceSummary,
+          submitted_at_utc: new Date().toISOString(),
+          screen_size: `${window.innerWidth}x${window.innerHeight}`,
+          user_agent: navigator.userAgent
+        };
+      }
+
+      function populateTrackingFields(form) {
+        const tracking = getTrackingData();
+        form.querySelectorAll(".tracking-field").forEach((field) => {
+          const key = field.dataset.track;
+          if (key && tracking[key] !== undefined) {
+            field.value = tracking[key];
+          }
+        });
+      }
+
+      function showState(stateToShow) {
+        formState.classList.add("hidden");
+        qualifierState.classList.add("hidden");
+        thankyouState.classList.add("hidden");
+        stateToShow.classList.remove("hidden");
+      }
+
       function openWaitlist() {
         overlay.classList.add("open");
+        modalOpenTimestamp = Date.now();
+        populateTrackingFields(waitlistForm);
+        track("waitlist_modal_open", {
+          page_path: window.location.pathname,
+          source_summary: getTrackingData().source_summary
+        });
         setTimeout(() => emailInput.focus(), 180);
       }
 
-      function resetModal() {
+      function resetModal(reason = "close") {
+        const openDuration = modalOpenTimestamp ? Math.round((Date.now() - modalOpenTimestamp) / 1000) : 0;
+
         overlay.classList.remove("open");
+
+        track("waitlist_modal_closed", {
+          reason,
+          open_seconds: openDuration
+        });
+
         setTimeout(() => {
-          formState.classList.remove("hidden");
-          successState.classList.add("hidden");
+          showState(formState);
           waitlistForm.reset();
+          qualifierForm.reset();
+          submittedEmail = "";
+          qualifierEmail.value = "";
+          replyToField.value = "";
           submitButton.textContent = "Request access";
           submitButton.disabled = false;
+          qualifierSubmitButton.textContent = "Finish";
+          qualifierSubmitButton.disabled = false;
         }, 180);
       }
 
+      async function postForm(form) {
+        const formData = new FormData(form);
+
+        const response = await fetch(FORM_ENDPOINT, {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json"
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error("Form submit failed");
+        }
+
+        return response;
+      }
+
       openModal.addEventListener("click", openWaitlist);
-      closeModal.addEventListener("click", resetModal);
-      closeSuccess.addEventListener("click", resetModal);
+      closeModal.addEventListener("click", () => resetModal("x_button"));
+      closeSuccess.addEventListener("click", () => resetModal("success_close"));
 
       overlay.addEventListener("click", (e) => {
-        if (e.target === overlay) resetModal();
+        if (e.target === overlay) {
+          resetModal("overlay_click");
+        }
       });
 
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && overlay.classList.contains("open")) {
-          resetModal();
+          resetModal("escape_key");
         }
       });
 
@@ -641,31 +954,80 @@
 
       waitlistForm.addEventListener("submit", async (e) => {
         e.preventDefault();
+
+        populateTrackingFields(waitlistForm);
+        replyToField.value = emailInput.value.trim();
+
         submitButton.textContent = "Joining…";
         submitButton.disabled = true;
 
-        const formData = new FormData(waitlistForm);
+        track("waitlist_submit_started", {
+          page_path: window.location.pathname,
+          source_summary: getTrackingData().source_summary
+        });
 
         try {
-          const response = await fetch("https://formspree.io/f/xbdzkbdw", {
-            method: "POST",
-            body: formData,
-            headers: {
-              Accept: "application/json"
-            }
+          await postForm(waitlistForm);
+
+          submittedEmail = emailInput.value.trim();
+          qualifierEmail.value = submittedEmail;
+          populateTrackingFields(qualifierForm);
+
+          track("waitlist_signup_success", {
+            page_path: window.location.pathname,
+            source_summary: getTrackingData().source_summary
           });
 
-          if (!response.ok) {
-            throw new Error("Form submit failed");
-          }
-
-          formState.classList.add("hidden");
-          successState.classList.remove("hidden");
+          showState(qualifierState);
         } catch (error) {
           submitButton.textContent = "Try again";
           submitButton.disabled = false;
+
+          track("waitlist_signup_error", {
+            page_path: window.location.pathname
+          });
         }
       });
+
+      qualifierForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        populateTrackingFields(qualifierForm);
+        qualifierEmail.value = submittedEmail;
+
+        qualifierSubmitButton.textContent = "Sending…";
+        qualifierSubmitButton.disabled = true;
+
+        try {
+          await postForm(qualifierForm);
+
+          track("waitlist_qualifier_success", {
+            role: document.getElementById("role").value || "blank",
+            focus_need: document.getElementById("focusNeed").value || "blank",
+            coffee_habit: document.getElementById("coffeeHabit").value || "blank"
+          });
+
+          showState(thankyouState);
+        } catch (error) {
+          qualifierSubmitButton.textContent = "Try again";
+          qualifierSubmitButton.disabled = false;
+
+          track("waitlist_qualifier_error", {
+            page_path: window.location.pathname
+          });
+        }
+      });
+
+      skipQualifier.addEventListener("click", () => {
+        track("waitlist_qualifier_skipped", {
+          page_path: window.location.pathname
+        });
+        showState(thankyouState);
+      });
+
+      initAnalytics();
+      populateTrackingFields(waitlistForm);
+      populateTrackingFields(qualifierForm);
     </script>
   </body>
 </html>
