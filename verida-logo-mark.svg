@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="Verida Labs logo mark">
+  <defs>
+    <style>
+      .sage { fill: none; stroke: #9eab99; stroke-width: 34; stroke-linecap: round; stroke-linejoin: round; }
+      .ring { fill: #ffffff; stroke: #9eab99; stroke-width: 18; }
+      .blue { fill: #7b93b2; }
+      .gold { fill: #bc9558; }
+    </style>
+  </defs>
+  <path class="sage" d="M512 298 L701 407 L701 625 L512 734 L323 625 L323 407 Z"/>
+  <line class="sage" x1="512" y1="298" x2="512" y2="208"/>
+  <line class="sage" x1="701" y1="625" x2="792" y2="678"/>
+  <circle class="ring" cx="512" cy="163" r="50"/>
+  <circle class="blue" cx="512" cy="163" r="31"/>
+  <circle class="ring" cx="835" cy="703" r="50"/>
+  <circle class="gold" cx="835" cy="703" r="31"/>
+</svg>
